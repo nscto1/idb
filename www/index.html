@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="overflow-y: auto;">
-
+<html lang="en" style="overflow-y:auto">
 <head>
 	<title></title>
 	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0">
@@ -20,7 +19,6 @@
 		}
 	</style>
 </head>
-
 <body class="" style="overflow-x:hidden">
 	<div id="content-app">
 		<div id="main-content-app">
@@ -30,9 +28,13 @@
 						style="padding-top:13px;padding-left:9px;display:none" id="btn-back">
 						<i class="la la-arrow-left la-fw" style="font-size:24px"></i>
 					</div>
-					<div class="col right center nav-btn btn-cart ripple-" style="padding-top:13px;padding-left:9px">
+					<div class="col right center nav-btn btn-cart ripple-" style="padding-top:13px;padding-left:9px" onclick="to_logout_show()">
 						<i class="la la-ellipsis-v la-fw" style="font-size:24px"></i>
 					</div>
+					<div class="round-small white card padding right" style="position:relative;top:10px;left:38px;display:none;z-index:3" id="to_logout" onclick="hide_to_logout(1)">
+						Logout
+					</div>
+					<div class="overlay" style="background-color:transparent" id="overlay-logout" onclick="hide_to_logout()"></div>
 					<div class="rest row large clamp" style="padding:13px 4px 9px 16px;max-height:43px">
 						<b id="title-bar">Indibath</b>
 					</div>
@@ -118,50 +120,6 @@
 						</div>
 					</div>
 				</div>
-				<script>
-					function proses_reset_password() {
-						notif("Email reset password telah terkirim, silahkan cek email anda dan ikuti petunjuknya");
-					}
-					function proses_login(ths) {
-						if (ths) $(ths).prop("disabled", true);
-						// if success{
-						notif("Anda berhasil login");
-						to_frame_home();
-						// else{
-
-						// }
-					}
-					function to_frame_home(btn) {
-						back_all()
-						btn = $("#btn-home");
-						btn.parent().find(".text-theme-d1").removeClass("text-theme-d1");
-						btn.addClass("text-theme-d1");
-						getHtml("home", function (res) {
-							$("#btn-back").hide();
-							$("#content-home").hide().html(res).fadeIn("fast");
-							$("#top-bar").fadeIn("fast");
-							$("#bottom-bar").fadeIn("fast");
-							$("#title-bar").html("Indibath");
-						});
-					}
-					function back_all() {
-						if (!$("#btn-back").is(":hidden")) {
-							$(".content-home").html("").hide();
-							$("#btn-back").hide().off("click");
-						}
-						$("#content-home").show();
-					}
-					function to_frame_lupa_password() {
-						$("#loginForm").fadeOut("fast", function () {
-							$("#resetPasswordForm").fadeIn();
-						});
-					}
-					function to_frame_login() {
-						$("#resetPasswordForm").fadeOut("fast", function () {
-							$("#loginForm").fadeIn();
-						});
-					}
-				</script>
 			</div>
 		</div>
 	</div>
@@ -175,9 +133,8 @@
 <script src="./assets/js/jquery.loadButton.min.js"></script>
 <script src="./assets/multi/fSelect.js"></script>
 <script>
-	$(document).ready(function () {
-
-
+	$(document).ready(validateLogin);
+	function validateLogin(){
 		$("#form-login").validate({
 			rules: {
 				email: {
@@ -246,8 +203,41 @@
 				return false;
 			}
 		});
-	});
+	}
+	function proses_reset_password() {
+		notif("Email reset password telah terkirim, silahkan cek email anda dan ikuti petunjuknya");
+	}
+	function proses_login(ths) {
+		if (ths) $(ths).prop("disabled", true);
+		// if success{
+		notif("Anda berhasil login");
+		to_frame_home();
+		// else{
 
+		// }
+	}
+	function to_frame_home(btn) {
+		back_all()
+		btn = $("#btn-home");
+		btn.parent().find(".text-theme-d1").removeClass("text-theme-d1");
+		btn.addClass("text-theme-d1");
+		getHtml("home", function (res) {
+			$("#btn-back").hide();
+			$("#content-home").hide().html(res).fadeIn("fast");
+			$("#top-bar").fadeIn("fast");
+			$("#bottom-bar").fadeIn("fast");
+			$("#title-bar").html("Indibath");
+		});
+	}
+	function to_frame_lupa_password() {
+		$("#loginForm").fadeOut("fast", function () {
+			$("#resetPasswordForm").fadeIn();
+		});
+	}
+	function to_frame_login() {
+		$("#resetPasswordForm").fadeOut("fast", function () {
+			$("#loginForm").fadeIn();
+		});
+	}
 </script>
-
 </html>
